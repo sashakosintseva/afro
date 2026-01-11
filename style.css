@@ -266,7 +266,21 @@ body {
 }
 
 /* Адаптация для мобильных */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 15px 30px;
+    }
+    
+    .style-detail-section {
+        padding: 60px 30px;
+    }
+}
+
 @media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    
     .style-detail-section {
         padding: 60px 20px;
     }
@@ -303,6 +317,14 @@ body {
 }
 
 @media (max-width: 480px) {
+    .navbar {
+        padding: 12px 15px;
+    }
+    
+    .style-detail-section {
+        padding: 40px 15px;
+    }
+    
     .style-title {
         font-size: 2rem;
     }
@@ -340,4 +362,75 @@ body {
     color: #ccc;
     margin-bottom: 20px;
     padding-left: 15px;
+}
+
+/* Стили бургер-меню для мобильных */
+@media (max-width: 768px) {
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 1001;
+        gap: 4px;
+    }
+    
+    .burger-menu span {
+        width: 30px;
+        height: 3px;
+        background-color: #fff;
+        transition: 0.3s;
+    }
+    
+    .burger-menu.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .burger-menu.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    .nav-container {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: #000;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 100px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        display: flex !important;
+    }
+    
+    .nav-container.active {
+        right: 0;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        font-size: 20px;
+        display: block;
+        padding: 15px;
+       
+        border-radius: 5px;
+    }
+    
+    .phone-number {
+        font-size: 18px;
+        justify-content: center;
+        margin-top: 30px;
+    }
 }
