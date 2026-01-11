@@ -4,9 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AFRO | NDC</title>
-    <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="afro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Добавляем стили бургер-меню */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            gap: 4px;
+        }
+        
+        .burger-menu span {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            transition: 0.3s;
+        }
+        
+        .burger-menu.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .burger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        /* Адаптивные стили для мобильных */
+        @media (max-width: 768px) {
+            .burger-menu {
+                display: flex;
+            }
+            
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #000;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 100px;
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-container.active {
+                right: 0;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+                width: 100%;
+            }
+            
+            .nav-links a {
+                font-size: 20px;
+                display: block;
+                padding: 15px;
+                
+                border-radius: 5px;
+            }
+            
+            .phone-number {
+                font-size: 18px;
+                justify-content: center;
+                margin-top: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
      <!-- Навбар -->
@@ -14,8 +89,15 @@
         <a href="glav.html" class="logo">
             <img src="img/1-no-bg-preview (carve.photos) (1) 1.svg" alt="NDC Logo">
         </a>
+        
+        <!-- Бургер-меню для мобильных -->
+        <div class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-        <div class="nav-container">
+        <div class="nav-container" id="navContainer">
             <ul class="nav-links">
                 <li><a href="rasp.html">Расписание</a></li>
                 <li><a href="onas.html">О нас</a></li>
@@ -53,9 +135,10 @@
                 </div>
 
                 <div class="info-block red-border">
-                    <h2 class="info-title">Одежда для HIP-HOP</h2>
+                    <h2 class="info-title">Одежда для AFRO</h2>
                     <p class="info-text">
                         Для занятий Afro подходит свободная, не сковывающая движения одежда из натуральных тканей. Женщины часто выбирают яркие цвета и этнические принты. 
+                    </p>
                     <ul class="info-list">
                         <li><strong>Верх:</strong> Свободные футболки, укроченные объемные топы, объемные рубашки</li>
                         <li><strong>Низ:</strong> Широкие штаны (джоггеры, карго, спортивные брюки), джинсы с низкой посадкой</li>
@@ -88,7 +171,6 @@
                     <p class="info-text">
                         Afro помогает раскрепостить тело, развить чувство ритма и научиться выражать эмоции через движение. Это отличный способ снять стресс, улучшить координацию и пластику. Занятия Afro дарят невероятный заряд энергии, укрепляют мышцы корпуса и ног, а также помогают обрести уверенность в себе. Это танец свободы и самовыражения.
                     </p>
-                    
                 </div>
             </div>
 
@@ -99,7 +181,43 @@
             </div>
         </div>
     </section>
-
-
+    
+    <script>
+        // Инициализация бургер-меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.getElementById('burgerMenu');
+            const navContainer = document.getElementById('navContainer');
+            
+            if (burgerMenu && navContainer) {
+                burgerMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navContainer.classList.toggle('active');
+                    
+                    // Блокировка прокрутки при открытом меню
+                    document.body.style.overflow = navContainer.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                // Закрытие меню при клике на ссылку
+                const navLinks = document.querySelectorAll('.nav-links a, .phone-number');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        burgerMenu.classList.remove('active');
+                        navContainer.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+                
+                // Закрытие меню при клике вне его области
+                document.addEventListener('click', function(event) {
+                    if (!navContainer.contains(event.target) && !burgerMenu.contains(event.target) && navContainer.classList.contains('active')) {
+                        burgerMenu.classList.remove('active');
+                        navContainer.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
